@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(description="Tool for calculating domain compos
 parser._optionals.title="Arguments"
 
 parser.add_argument('--fasta_dir', help="Location of directory containing family fasta files", required=True, dest="family_fasta_file_dir")
+parser.add_argument('--output_dir', help="Location of the output directory", required=True, dest="output_directory")
 parser.add_argument('--name', help="Name of the dataset used to create output files", required="True", dest="dataset_name")
 args = parser.parse_args()
 
@@ -87,9 +88,9 @@ def write_family_domain_order_files(family_fasta_dirName, domain_order_dirName, 
 		get_domain_order_from_pfamscanout_file(pfamscanout_fileName, pfamscanout_dirName, family_seqid_dict, family_domain_order_fileName)
 
 #####################################################################################################################################################
-def process_domain_order_files(domain_order_dirName, dataset_name):
-	domain_composition_outfile=open(dataset_name+".family_domain_compositions","w")
-	domain_jaccard_score_outfile=open(dataset_name+".family_domain_jaccard_scores","w")
+def process_domain_order_files(domain_order_dirName, dataset_name, output_dirName):
+	domain_composition_outfile=open(output_dirName+"/"+dataset_name+".family_domain_compositions","w")
+	domain_jaccard_score_outfile=open(output_dirName+"/"+dataset_name+".family_domain_jaccard_scores","w")
 	print '\n\nreading domain order files\n\n'
 	for order_file in os.listdir(domain_order_dirName):
 		domain_order_fileName=domain_order_dirName+"/"+order_file
@@ -172,13 +173,24 @@ def get_jaccard_score_for_two_domain_arr(domain_arr1, domain_arr2):
 
 def print_avg_jaccard_score_for_family(family_id, avg_jaccard_score, domain_jaccard_score_outfile, famsize):
 	domain_jaccard_score_outfile.write(family_id+" "+str(famsize)+" "+str(avg_jaccard_score)+"\n")
+
+def execute_workflow(family_fasta_dirName, dataset_name, output_dirName):
+	domain_order_dirName=output_dirName+"/"+"domain_order_results/"
+	if not os.path.exists(domain_order_dirName):
+    		os.makedirs(domain_order_dirName)
+
+	pfamscanout_dirName=output_dirName+"/"+"pfamscan_results/"
+	if not os.path.exists(pfamscanout_dirName):
+    		os.makedirs(pfamscanout_dirName)
+	
+	write_family_domain_order_files(family_fasta_dirName, domain_order_dirName, pfamscanout_dirName)
+	process_domain_order_files(domain_order_dirName, dataset_name, output_dirName)
+
 ############################################################################################################################################################
 
 family_fasta_dirName=args.family_fasta_file_dir
 dataset_name=args.dataset_name
-domain_order_dirName="domain_order_results/"
-pfamscanout_dirName="pfamscan_results/"
-write_family_domain_order_files(family_fasta_dirName, domain_order_dirName, pfamscanout_dirName)
-process_domain_order_files(domain_order_dirName, dataset_name)
+output_dirName=args.output_directory
+execute_workflow(family_fasta_dirName, dataset_name, output_dirName)
 
 
