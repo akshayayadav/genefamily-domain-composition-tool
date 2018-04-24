@@ -10,7 +10,7 @@ This tool assigns Pfam-domains to families of protein sequences. The domains are
 * Add the Pfam modules to your PERL5LIB using the following command _bash\% export PERL5LIB\=\/path\/to\/pfam\_Dir\:$PERL5LIB_
 
 #### Output files
-* Directory containing raw pfamscan output files, one per family, in the _pfam\_scan_ directory
-* Directory containing domain order files, one per family, containing the Pfam-domains for each sequence in the family in order of their starting positions in the corresponding sequences. A _**NULL**_ domain is reported for the sequence where no Pfam-domain is detected.
-* \*.family\_domain\_compositions file contains a summarised domain compositions for all the family fasta files present in the input directory. Format\: \<family\_id\> \<domain\-1\>\-\<\% of sequences in the family containing the domain\> ... 
-
+* pfamscan\_out directory contains raw pfamscan output files for each family.
+* domain\_order\_results directory contains domain order files for each family. Each domain order file contains Pfam-domains for each sequence in the family in order of their starting positions in the sequences. A _\*\*NULL\*\*_ domain is reported for sequences where no Pfam-domain is detected.
+* \*.family\_domain\_compositions file contains summarised domain compositions for each family. Format\: \<family\_id\> \<domain\-1\>\-\<\% of sequences in the family containing the domain\> ... 
+* \*.family\_domain\_jaccard\_scores file contains domain composition Jaccard scores for all the families. Format \<family\_id\> \<Jaccard score\>
