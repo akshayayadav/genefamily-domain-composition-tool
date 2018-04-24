@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+#Author: Akshay Yadav
+#Version: 1.0
+
 from __future__ import division
 import re
 import os
