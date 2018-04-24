@@ -1,5 +1,5 @@
 ## Tool for analyzing Pfam-domain compositions of gene families
-This tool assigns Pfam-domains to families of protein sequences. The domains are reported in order of their starting positions in the sequence. Domain compositions of each given family is summarised in terms of percentage of sequences containing the domains found in the corresponding family and average jaccard score calculated from all the pair-wise jaccard scores from the family.
+This tool assigns Pfam-domains to families of protein sequences. The domains are reported in order of their starting positions in the sequence. Domain compositions of each given family is summarised in terms of percentage of sequences containing the domains found in the corresponding family and average jaccard score calculated from all the pair-wise jaccard scores from the family. Jaccard score between any two family sequences is = no-of-unique-common-domains-between-seq1-&-seq2/((total-no-of-unique-domains-in-seq1)+(total-no-of-unique-domains-in-seq2)) 
 
 #### Requirments
 * UNIX based OS
