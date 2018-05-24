@@ -62,7 +62,7 @@ def print_domain_order_for_family_sequences(seqid_startcoord_domain_dict, family
 	family_domain_order_file=open(family_domain_order_fileName,"w")
 	for seqid in family_seqid_dict:
 		if not(seqid_startcoord_domain_dict.has_key(seqid)):
-			family_domain_order_file.write(seqid+" "+"**NULL**"+"\n")
+			#family_domain_order_file.write(seqid+" "+"**NULL**"+"\n")
 			continue
 		startcoord_domain_dict=seqid_startcoord_domain_dict[seqid]
 		startcoord_domain_dict_sorted=sorted(startcoord_domain_dict.items(), key=operator.itemgetter(0))
@@ -154,8 +154,8 @@ def print_family_domain_composition(domain_seqcount_dict, famsize, domain_compos
 def calculate_family_domain_jaccard_score(seqid_domainarr_dict, domain_jaccard_score_outfile, family_id):
 	seqid_arr = seqid_domainarr_dict.keys()
 	famsize=len(seqid_arr)
-	if(famsize<2):
-		avg_jaccard_score=1.0
+	if not (famsize>1):
+		return(0)
 	else:
 		avg_jaccard_score=0
 		counter=0
